@@ -1,0 +1,24 @@
+server:
+  port: 9000
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
+    # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
+    url: jdbc:mysql://192.168.3.48:3306/test_activiti?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&nullCatalogMeansCurrent=true
+    username: root
+    password: root
+
+
+  activiti:
+    # 配置activiti
+    # true：activiti会对数据库表进行更新。如果表不存在，则创建
+    # false：默认值，activiti启动，会对比数据库表保存的版本，如果没有表或版本不匹配，会抛异常。
+    database-schema-update: true
+    # activiti7需要手动开启记录
+    db-history-used: false
+    history-level: full
+    process-definition-location-prefix: classpath:/bpmn/
+    process-definition-location-suffixes:
+      - "**.bpmn"
+      - "**.bpmn20.xml"
